@@ -1,10 +1,12 @@
 FROM python:3
 
-
-ADD WebInterface.py /
-ADD templates/ /templates
+COPY WebInterface.py /
+COPY templates/ /templates
 
 RUN pip install Flask
 RUN pip install wtforms
+RUN pip install click
 
-CMD [ "python" , "./WebInterface.py" ]
+ENTRYPOINT [ "python" ]
+
+CMD [ "./WebInterface.py" ]
