@@ -3,9 +3,10 @@ FROM python:3.7.2
 COPY WebInterface.py /
 COPY templates/ /templates
 
-RUN pip install Flask
-RUN pip install wtforms
-RUN pip install click
+#add silence 
+RUN pip install -y Flask
+RUN pip install -y wtforms
+RUN pip install -y click
 
 ENTRYPOINT [ "python" ]
 
