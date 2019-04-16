@@ -1,6 +1,15 @@
 from click import echo
-from flask import Flask, render_template, flash, request
-from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField, form, RadioField
+from flask import Flask
+from flask import render_template
+from flask import flash, request
+from wtforms import Form
+from wtforms import TextField
+from wtforms import TextAreaField
+from wtforms import validators
+from wtforms import StringField
+from wtforms import SubmitField
+from wtforms import form
+from wtforms import RadioField
 
 # App config.
 DEBUG = True
