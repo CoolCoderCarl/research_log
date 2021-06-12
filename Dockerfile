@@ -1,4 +1,4 @@
-FROM python:3.7.2
+FROM python:3.9.5
 
 COPY WebInterface.py /
 COPY templates/ /templates
