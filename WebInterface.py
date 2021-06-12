@@ -4,11 +4,8 @@ from flask import render_template
 from flask import flash, request
 from wtforms import Form
 from wtforms import TextField
-from wtforms import TextAreaField
 from wtforms import validators
-from wtforms import StringField
-from wtforms import SubmitField
-from wtforms import form
+
 from wtforms import RadioField
 
 # App config.
@@ -35,7 +32,7 @@ def lgnfrm():
     print(form.errors)
 
     if request.method == 'POST':
-        login = request.form['login']
+        login = request.form['name']
         password = request.form['password']
         email = request.form['email']
         print(login, " ", email, " ", password)
@@ -45,7 +42,7 @@ def lgnfrm():
 
 
     if form.validate():
-        flash('Hello ' + login)
+        flash('Hello' + login)
     else:
         flash('All the form fields are required. ')
 
@@ -57,4 +54,4 @@ class SimpleForm(Form):
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
