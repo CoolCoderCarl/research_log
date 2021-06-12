@@ -1,13 +1,10 @@
-FROM python:3.7.2
+FROM python:3.7.9
 
 COPY WebInterface.py /
 COPY templates/ /templates
+COPY requirements.txt requirements.txt
 
-# return back
-# pip do not know about "-y" option
-RUN pip install Flask
-RUN pip install wtforms
-RUN pip install click
+RUN pip3.7 install -r requirements.txt
 
 ENTRYPOINT [ "python" ]
 
