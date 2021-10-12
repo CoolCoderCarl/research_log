@@ -1,57 +1,41 @@
-from click import echo
 from flask import Flask
+from flask import url_for
+from flask import request
 from flask import render_template
-from flask import flash, request
-from wtforms import Form
-from wtforms import TextField
-from wtforms import validators
+from datetime import datetime
 
-from wtforms import RadioField
+now = datetime.now()
+dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
 
-# App config.
-DEBUG = True
 app = Flask(__name__)
-app.config.from_object(__name__)
-app.config['SECRET_KEY'] = '123'
+
+@app.route('/')
+@app.route('/index')
+def index():
+    return render_template('index.html', title='Index')
+
+@app.route('/submit', methods=['POST'])
+def submit():
+    text = request.form['text']
+    with open("%s.txt" % dt_string, "w") as text_file:
+        text_file.write(text)
+    return render_template('index.html', title='Index')
 
 
-class ReusableForm(Form):
-    login = TextField('Login:', validators=[validators.required()])
-    email = TextField('Email:', validators=[validators.required(), validators.Length(min=6, max=35)])
-    password = TextField('Password:', validators=[validators.required(), validators.Length(min=3, max=35)])
+@app.route('/projects')
+def projects():
+    return 'The project page'
 
-@app.route("/anotherpage", methods=['GET', 'POST'])
-def apage():
-    return
-
-
-@app.route("/", methods=['GET', 'POST'])
-def lgnfrm():
-    form = ReusableForm(request.form)
-
-    print(form.errors)
-
-    if request.method == 'POST':
-        login = request.form['name']
-        password = request.form['password']
-        email = request.form['email']
-        print(login, " ", email, " ", password)
-        echo("Login is " + login)
-        echo("Email is " + email)
-        echo("Pass is " + password)
+@app.route('/about')
+def about():
+    return 'The about page'
 
 
-    if form.validate():
-        flash('Hello' + login)
-    else:
-        flash('All the form fields are required. ')
-
-    return render_template('hello.html', form=form)
+with app.test_request_context():
+    print(url_for('index'))
 
 
-class SimpleForm(Form):
-    example = RadioField('Label', choices=[('value','description'),('value_two','whatever')])
+if __name__ == '__main__':
 
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    # app.run(host='0.0.0.0',port=5000, debug=True) # DOCKER
+    app.run(port=5000, debug=True)
