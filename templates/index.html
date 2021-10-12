@@ -4,6 +4,20 @@
     </head>
     <body>
         <h1>Organaiser 2000</h1>
+
+        <p id="clock">Here will be date|time</p>
+
+        <script>
+            var clock = document.getElementById("clock");
+
+            setInterval(() => {
+                fetch("{{ url_for('time_feed') }}")
+                .then(response => {
+                        response.text().then(t => {clock.innerHTML = t})
+                    });
+                }, 1000);
+        </script>
+
         <div>
             Navigation:
             <a href="/index">Home</a>
@@ -12,6 +26,7 @@
         <hr>
         {% block content %}{% endblock %}
     </body>
+    <h3>Make notes after submit</h3>
     <form action="{{ url_for('submit') }}" method="POST">
         <textarea name="text"></textarea>
         <input type="submit">
