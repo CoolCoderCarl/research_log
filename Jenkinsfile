@@ -1,10 +1,10 @@
 pipeline {
-    agent any
+    agent docker { image 'python:3.7.9' }
 
     stages {
         stage('Build') {
             steps {
-                echo 'Building..'
+                sh 'podman build -t docker.io/h0d0user/logger_image_tester:latest .'
             }
         }
         stage('Test') {
