@@ -1,23 +1,20 @@
 pipeline {
-    agent {
-        docker { image 'python:3.7.9' }
-    }
-    
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                sh 'hello'
+                sh 'docker build -t h0d0user/flask_web_test:latest .'
             }
         }
-        stage('Test') {
+        stage('Run') {
             steps {
-                echo 'Testing..'
+                sh 'docker run -d -p 5000:5000 h0d0user/flask_web_test:latest'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                echo 'docker push h0d0user/flask_web_test:latest'
             }
         }
     }
