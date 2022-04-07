@@ -1,12 +1,11 @@
 pipeline {
-    agent {
-        docker { image 'python:3.7.9' }
-    }
+    agent any
+    
 
     stages {
         stage('Build') {
             steps {
-                sh 'podman build -t docker.io/h0d0user/logger_image_tester:latest .'
+                sh 'hello'
             }
         }
         stage('Test') {
