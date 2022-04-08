@@ -21,7 +21,7 @@ pipeline {
     
     post {
         success {
-            echo '${JENKINS_URL}'
+            echo '$JENKINS_URL'
             }
     }         
 }
