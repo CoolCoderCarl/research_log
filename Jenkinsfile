@@ -16,6 +16,12 @@ pipeline {
             steps {
                 echo 'docker push h0d0user/flask_web_test:latest'
             }
-        }
+        }   
     }
+    
+    post {
+        success {
+            echo '${JENKINS_URL}'
+            }
+    }         
 }
