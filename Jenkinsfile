@@ -21,7 +21,7 @@ pipeline {
     
     post {
         success {
-            echo '${env.JENKINS_URL}'
+            echo 'http://192.168.18.130:5000/'
             }
     }         
 }
