@@ -9,10 +9,12 @@ dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
 
 app = Flask(__name__)
 
+
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html', title='Index')
+
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -25,6 +27,7 @@ def submit():
 @app.route('/projects')
 def projects():
     return 'The project page'
+
 
 @app.route('/about')
 def about():
@@ -39,3 +42,4 @@ if __name__ == '__main__':
 
     # app.run(host='0.0.0.0',port=5000, debug=True) # DOCKER
     app.run(port=5000, debug=True)
+
