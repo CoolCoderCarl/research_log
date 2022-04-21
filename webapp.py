@@ -1,8 +1,6 @@
-from flask import Flask
-from flask import url_for
-from flask import request
-from flask import render_template
 from datetime import datetime
+
+from flask import Flask, render_template, request, url_for
 
 now = datetime.now()
 dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
