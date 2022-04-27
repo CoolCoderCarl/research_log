@@ -2,14 +2,18 @@
 
 {% block content %}
 
-<ul>
-    {% for file in files %}
-    <li>
-        <a href="{{ (request.path + '/' if request.path != '/' else '') + file }}">
-            {{ (request.path + '/' if request.path != '/' else '') + file }}
-        </a>
-    </li>
-    {% endfor %}
-</ul>
+   <div class="files">
+     <h1>Files</h1>
+   </div>
+
+    <ul>
+        {% for file in files %}
+        <li>
+            <a href="{{ (request.path + '/' if request.path != '/' else '') + file }}">
+                {{ (request.path + '/' if request.path != '/' else '') + file }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

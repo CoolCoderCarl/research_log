@@ -29,34 +29,33 @@ def submit():
     return render_template("index.html", title="Index")
 
 
-@app.route('/files', defaults={'req_path': ''})
-@app.route('/<path:req_path>')
+@app.route("/files", defaults={"req_path": ""})
+@app.route("/<path:req_path>")
 def files(req_path):
-    BASE_DIR = log_for_logs_path
-    abs_path = os.path.join(BASE_DIR, req_path)
+    base_dir = log_for_logs_path
+    abs_path = os.path.join(base_dir, req_path)
     files = os.listdir(abs_path)
-    return render_template('files.html', files=files)
+    return render_template("files.html", files=files)
 
 
-@app.route('/files/<path:filename>')
+@app.route("/files/<path:filename>")
 def read(filename):
-    with open(log_for_logs_path + '/' + filename, 'r') as f:
-        return render_template('content.html', text=f.read())
+    with open(log_for_logs_path + "/" + filename, "r") as f:
+        return render_template("content.html", text_from_file=f.read())
 
 
-# @app.route('/files/<path:filename>')
-# @app.route("/download", methods=["POST"])
-# def download(filename):
-#     return send_from_directory(
-#         log_for_logs_path,
-#         filename,
-#         as_attachment=True
-#     )
+@app.route("/files/<path:filename>", methods=["GET"])
+def download(filename):
+    return send_from_directory(
+        # log_for_logs_path,
+        filename,
+        as_attachment=True,
+    )
 
 
 @app.route("/about")
 def about():
-    return render_template('about.html', files=files)
+    return render_template("about.html", files=files)
 
 
 with app.test_request_context():
@@ -66,4 +65,4 @@ with app.test_request_context():
 if __name__ == "__main__":
 
     # app.run(host="0.0.0.0", port=5000, debug=True)  # DOCKER
-    app.run(port=5001, debug=True)
+    app.run(port=5000, debug=True)
