@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request, url_for, send_file
+from flask import Flask, render_template, request, url_for, send_from_directory
 
 now = datetime.now()
 dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
@@ -33,23 +33,29 @@ def submit():
 @app.route('/<path:req_path>')
 def files(req_path):
     BASE_DIR = log_for_logs_path
-
     abs_path = os.path.join(BASE_DIR, req_path)
-
-    if os.path.isfile(abs_path):
-        return send_file(abs_path)
-
     files = os.listdir(abs_path)
     return render_template('files.html', files=files)
 
-    # Read files
-    # Download
-    # return "The project page"
+
+@app.route('/files/<path:filename>')
+def read(filename):
+    with open(log_for_logs_path + '/' + filename, 'r') as f:
+        return render_template('content.html', text=f.read())
+
+
+# @app.route('/files/<path:filename>')
+# @app.route("/download", methods=["POST"])
+# def download(filename):
+#     return send_from_directory(
+#         log_for_logs_path,
+#         filename,
+#         as_attachment=True
+#     )
 
 
 @app.route("/about")
 def about():
-    # Additional info
     return render_template('about.html', files=files)
 
 
