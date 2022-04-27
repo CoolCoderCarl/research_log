@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, send_file
 
 now = datetime.now()
 dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
@@ -29,18 +29,28 @@ def submit():
     return render_template("index.html", title="Index")
 
 
-@app.route("/projects")
-def projects():
-    # List all files
+@app.route('/files', defaults={'req_path': ''})
+@app.route('/<path:req_path>')
+def files(req_path):
+    BASE_DIR = log_for_logs_path
+
+    abs_path = os.path.join(BASE_DIR, req_path)
+
+    if os.path.isfile(abs_path):
+        return send_file(abs_path)
+
+    files = os.listdir(abs_path)
+    return render_template('files.html', files=files)
+
     # Read files
     # Download
-    return "The project page"
+    # return "The project page"
 
 
 @app.route("/about")
 def about():
     # Additional info
-    return "The about page"
+    return render_template('about.html', files=files)
 
 
 with app.test_request_context():
@@ -50,4 +60,4 @@ with app.test_request_context():
 if __name__ == "__main__":
 
     # app.run(host="0.0.0.0", port=5000, debug=True)  # DOCKER
-    app.run(port=5000, debug=True)
+    app.run(port=5001, debug=True)
