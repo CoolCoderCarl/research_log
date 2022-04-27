@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <title>Organizer 2000</title>
+    </head>
+    <body>
+        <h1>Organizer 2000</h1>
+        <div>
+            Navigation:
+            <a href="/index">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/about">About</a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+    <form action="{{ url_for('submit') }}" method="POST">
+        <textarea name="text"></textarea>
+        <input type="submit">
+    </form>
+
+</html>
