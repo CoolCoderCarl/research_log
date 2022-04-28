@@ -1,10 +1,9 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request, url_for
+from flask import Flask, Response, render_template, request, url_for
 
-now = datetime.now()
-dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
+dt_file_name = datetime.now().strftime("%d.%m.%Y_%H.%M.%S")
 
 app = Flask(__name__)
 
@@ -21,10 +20,18 @@ def index():
     return render_template("index.html", title="Index")
 
 
+@app.route("/time_feed")
+def time_feed():
+    def generate():
+        yield datetime.now().strftime("%d.%m.%Y|%H:%M:%S")
+
+    return Response(generate(), mimetype="text")
+
+
 @app.route("/submit", methods=["POST"])
 def submit():
     text = request.form["text"]
-    with open(log_for_logs_path + "/" + "%s.txt" % dt_string, "w") as text_file:
+    with open(log_for_logs_path + "/" + "%s.txt" % dt_file_name, "w") as text_file:
         text_file.write(text)
     return render_template("index.html", title="Index")
 
