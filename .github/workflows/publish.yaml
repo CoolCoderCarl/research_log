@@ -16,6 +16,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Search
         run: |
           pwd
