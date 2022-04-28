@@ -2,6 +2,18 @@
 <html>
   <body>
 
+    <p id="clock">Date|time loading...</p>
+    <script>
+        var clock = document.getElementById("clock");
+
+        setInterval(() => {
+            fetch("{{ url_for('time_feed') }}")
+            .then(response => {
+                    response.text().then(t => {clock.innerHTML = t})
+                });
+            }, 1000);
+    </script>
+
     <header>
       <div class="container">
         <h1 class="logo">Organizer 2000</h1>
