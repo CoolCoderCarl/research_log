@@ -10,3 +10,4 @@ pip==21.1.2
 setuptools==57.0.0
 black
 flake8
+isort
