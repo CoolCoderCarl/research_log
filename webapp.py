@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request, url_for, Response
+from flask import Flask, Response, render_template, request, url_for
 
 now = datetime.now()
 dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
@@ -21,11 +21,12 @@ def index():
     return render_template("index.html", title="Index")
 
 
-@app.route('/time_feed')
+@app.route("/time_feed")
 def time_feed():
     def generate():
         yield datetime.now().strftime("%d.%m.%Y|%H:%M:%S")
-    return Response(generate(), mimetype='text')
+
+    return Response(generate(), mimetype="text")
 
 
 @app.route("/submit", methods=["POST"])
