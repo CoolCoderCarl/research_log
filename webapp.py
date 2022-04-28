@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask, render_template, request, url_for, send_from_directory
+from flask import Flask, render_template, request, url_for
 
 now = datetime.now()
 dt_string = now.strftime("%d.%m.%Y_%H.%M.%S")
@@ -44,15 +44,6 @@ def read(filename):
         return render_template("content.html", text_from_file=f.read())
 
 
-@app.route("/files/<path:filename>", methods=["GET"])
-def download(filename):
-    return send_from_directory(
-        # log_for_logs_path,
-        filename,
-        as_attachment=True,
-    )
-
-
 @app.route("/about")
 def about():
     return render_template("about.html", files=files)
@@ -63,6 +54,5 @@ with app.test_request_context():
 
 
 if __name__ == "__main__":
-
     # app.run(host="0.0.0.0", port=5000, debug=True)  # DOCKER
     app.run(port=5000, debug=True)
