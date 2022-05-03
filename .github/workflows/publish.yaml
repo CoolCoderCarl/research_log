@@ -11,7 +11,6 @@ jobs:
     name: Publish on DockerHub
 
     steps:
-      - uses: actions/checkout@v2
       - name: Bump version and push tag
         id: tag_version
         uses: mathieudutour/github-tag-action@v6.0
@@ -33,9 +32,25 @@ jobs:
           ls -la
 
       - name: Build and push
+        id: push_image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           tags: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
+      - name: Send telegram message after image was pushed
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+
+            Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref }}
+            Pushed image: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
