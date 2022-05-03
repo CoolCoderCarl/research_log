@@ -51,6 +51,6 @@ jobs:
 
             Repository: ${{ github.repository }}
             Branch: *${{ github.ref }}*
-            Pushed image: ${{ join(steps.push_image.outputs.*, '\n') }}
+            Pushed image: ${{ steps.push_image.outputs.ImageID }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
