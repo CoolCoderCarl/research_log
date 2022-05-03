@@ -46,10 +46,10 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} created commit:
-            Commit with tag ${{ steps.tag_version.outputs.new_tag }}
+            Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
-            Pushed image: ${{ steps.push_image.outputs }}
+            Pushed image: ${{ steps.push_image.outputs.* }}
