@@ -52,10 +52,10 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }}
+            Commit message: ${{ github.event.commits[0].message }} with tag ${{ needs.docker.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
-            Pushed image: ${{ needs.docker.push_image.tags }}
+            Pushed image: ${{ needs.docker.push_image.outputs }}
