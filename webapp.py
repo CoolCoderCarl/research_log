@@ -31,6 +31,8 @@ def time_feed():
 @app.route("/submit", methods=["POST"])
 def submit():
     text = request.form["text"]
+    # TO DO
+    # If text empty pass
     with open(
         research_logs_path + "/" + "entry-%s.txt" % dt_file_name, "w"
     ) as text_file:

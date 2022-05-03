@@ -5,6 +5,7 @@ WORKDIR /webapp
 COPY requirements.txt /webapp/requirements.txt
 COPY webapp.py /webapp
 COPY templates/ /webapp/templates
+COPY static/ /webapp/static
 
 RUN pip3.9 install -r requirements.txt
 
