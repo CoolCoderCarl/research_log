@@ -10,4 +10,4 @@ RUN pip3.9 install -r requirements.txt
 
 VOLUME /var/log/research_logs /webapp/research_logs
 
-CMD [ "python3.9 /webapp/webapp.py" ]
+CMD [ "python3.9", "/webapp/webapp.py" ]
