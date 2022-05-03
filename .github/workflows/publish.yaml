@@ -39,12 +39,6 @@ jobs:
           push: true
           tags: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
-  telegram:
-    needs: docker
-    runs-on: ubuntu-latest
-    name: Notify in Telegram
-
-    steps:
       - name: Send telegram message after image was pushed
         uses: appleboy/telegram-action@master
         with:
@@ -52,7 +46,7 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             ${{ github.actor }} created commit:
-            Commit message: ${{ github.event.commits[0].message }} with tag ${{ needs.docker.tag_version.outputs.new_tag }}
+            Commit with tag ${{ steps.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
 
