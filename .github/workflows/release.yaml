@@ -45,3 +45,24 @@ jobs:
           tag: ${{ steps.tag_version.outputs.new_tag }}
           name: Release ${{ steps.tag_version.outputs.new_tag }}
           body: ${{ steps.tag_version.outputs.changelog }}
+
+
+  telegram:
+    runs-on: ubuntu-latest
+    name: Notification
+    needs: build
+
+    steps:
+      - name: Notify telegram message after Released
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref }}
+            Pushed image: h0d0user/flask_web_test:latest
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
