@@ -31,7 +31,9 @@ def time_feed():
 @app.route("/submit", methods=["POST"])
 def submit():
     text = request.form["text"]
-    with open(research_logs_path + "/" + "entry-%s.txt" % dt_file_name, "w") as text_file:
+    with open(
+        research_logs_path + "/" + "entry-%s.txt" % dt_file_name, "w"
+    ) as text_file:
         text_file.write(text)
     return render_template("index.html", title="Index")
 
