@@ -38,3 +38,20 @@ jobs:
           push: true
           tags: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
+  telegram:
+    runs-on: ubuntu-latest
+    name: Notify in Telegram
+
+    steps:
+      - name: Send telegram message after image was pushed
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+
+            Repository: ${{ github.repository }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
