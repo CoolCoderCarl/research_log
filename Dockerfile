@@ -6,7 +6,7 @@ COPY webapp.py /build
 COPY templates/ /build/templates
 COPY requirements.txt /build/requirements.txt
 
-RUN pip3.7 install -r requirements.txt
+RUN pip3.9 install -r requirements.txt
 
 
 
