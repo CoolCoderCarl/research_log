@@ -52,4 +52,4 @@ jobs:
 
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
 
-            Pushed image: ${{ needs.docker.push_image.outputs }}
+            Pushed image: ${{ steps.push_image.outputs.tags }}
