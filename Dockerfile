@@ -1,15 +1,13 @@
-FROM python:3.7.9
+FROM python:3.9-slim
 
 WORKDIR /webapp
 
+COPY requirements.txt /build/requirements.txt
 COPY webapp.py /webapp
 COPY templates/ /webapp/templates
-COPY requirements.txt /webapp/requirements.txt
 
-RUN pip3.7 install -r requirements.txt
+RUN pip3.9 install -r requirements.txt
 
-VOLUME .research_logs /webapp/research_logs
+VOLUME /var/log/research_logs /webapp/research_logs
 
-ENTRYPOINT [ "python" ]
-
-#CMD [ "./webapp.py" ]
+CMD [ "python3.9 /webapp/webapp.py" ]
