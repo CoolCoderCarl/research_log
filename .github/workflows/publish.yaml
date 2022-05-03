@@ -50,7 +50,7 @@ jobs:
             Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
-            Branch: *${{ github.ref }}*
-            Pushed image: ${{ steps.push_image.outputs.ImageID }}
+            Branch: ${{ github.ref }}
+            Pushed image: h0d0user/flask_web_test:${{ steps.push_image.outputs.ImageID }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
