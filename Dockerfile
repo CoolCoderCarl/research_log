@@ -2,7 +2,7 @@ FROM python:3.9-slim
 
 WORKDIR /webapp
 
-COPY requirements.txt /build/requirements.txt
+COPY requirements.txt /webapp/requirements.txt
 COPY webapp.py /webapp
 COPY templates/ /webapp/templates
 
