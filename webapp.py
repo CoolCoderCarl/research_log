@@ -7,11 +7,11 @@ dt_file_name = datetime.now().strftime("%d.%m.%Y_%H.%M.%S")
 
 app = Flask(__name__)
 
-log_for_logs_path = "logs_for_logs"
-if log_for_logs_path:
+research_logs_path = "research_logs"
+try:
+    os.makedirs(research_logs_path)
+except OSError:
     pass
-else:
-    os.makedirs(log_for_logs_path)
 
 
 @app.route("/")
@@ -31,7 +31,7 @@ def time_feed():
 @app.route("/submit", methods=["POST"])
 def submit():
     text = request.form["text"]
-    with open(log_for_logs_path + "/" + "%s.txt" % dt_file_name, "w") as text_file:
+    with open(research_logs_path + "/" + "entry-%s.txt" % dt_file_name, "w") as text_file:
         text_file.write(text)
     return render_template("index.html", title="Index")
 
@@ -39,15 +39,15 @@ def submit():
 @app.route("/files", defaults={"req_path": ""})
 @app.route("/<path:req_path>")
 def files(req_path):
-    base_dir = log_for_logs_path
+    base_dir = research_logs_path
     abs_path = os.path.join(base_dir, req_path)
-    files = os.listdir(abs_path)
-    return render_template("files.html", files=files)
+    list_files = os.listdir(abs_path)
+    return render_template("files.html", files=list_files)
 
 
 @app.route("/files/<path:filename>")
 def read(filename):
-    with open(log_for_logs_path + "/" + filename, "r") as f:
+    with open(research_logs_path + "/" + filename, "r") as f:
         return render_template(
             "content.html", filename=filename, text_from_file=f.read()
         )
@@ -55,7 +55,7 @@ def read(filename):
 
 @app.route("/about")
 def about():
-    return render_template("about.html", files=files)
+    return render_template("about.html")
 
 
 with app.test_request_context():
