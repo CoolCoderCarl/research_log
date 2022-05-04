@@ -53,4 +53,4 @@ jobs:
             Branch: ${{ github.ref }}
             Pushed image: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
