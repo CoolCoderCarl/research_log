@@ -26,3 +26,24 @@ jobs:
       - name: Isort check
         run:
           isort --check .
+
+      - name: Notify in telegram after image was pushed
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            ${{ github.actor }} created commit:
+
+            <b>WorkFlows:</b> https://github.com/${{ github.repository }}/actions
+
+            Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
+
+            Repository: <pre>${{ github.repository }}</pre>
+
+            Branch: ${{ github.ref }}
+
+            <b>Pushed image:</b> h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
