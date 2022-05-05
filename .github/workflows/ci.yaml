@@ -29,10 +29,15 @@ jobs:
 
       - uses: actions/setup-python@v2
       - uses: jannekem/run-python-script-action@v1
+        id: github_repository_short
         with:
           script: |
-            gub_repo = "${{ github.repository }}".split('/',1)
-            print(gub_repo)
+            github_repository_short = "${{ github.repository }}".split('/'[1])
+            print(github_repository_short)
+
+      - name: Set GitHub Repository Short name
+        id: set_github_repository_short
+        run: echo "::set-output name=github_repository_short::${{ steps.github_repository_short.outputs.github_repository_short }}"
 
       - name: Step To run on failure
         if: ${{ failure() }}
