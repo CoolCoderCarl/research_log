@@ -40,10 +40,11 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          sticker: CAACAgIAAxkBAAEEooJidAZNEuwJnFo9sG8GAW6O5Yek_QACHQEAApAAAVAgEs29as6C8G0kBA
+          sticker: 'CAACAgIAAxkBAAEEooJidAZNEuwJnFo9sG8GAW6O5Yek_QACHQEAApAAAVAgEs29as6C8G0kBA'
           message: |
+            <b>!!! FAILED !!!</b>
 
-            https://github.com/${{ github.repository }}/actions/${{ github.run_id }}
+            https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
 
