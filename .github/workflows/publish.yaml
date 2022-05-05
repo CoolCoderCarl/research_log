@@ -39,6 +39,20 @@ jobs:
           push: true
           tags: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
+      - name: Step To run on failure
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
+          message: |
+            <b>!!! FAILED !!!</b>
+
+            <b>Failed job:</b> https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+
+            See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
+
       - name: Notify in telegram after image was pushed
         uses: appleboy/telegram-action@master
         with:
