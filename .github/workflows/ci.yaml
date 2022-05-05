@@ -34,6 +34,18 @@ jobs:
             gub_repo = ${{ github.repository }}
             print(gub_repo)
 
+      - name: Step To run on failure
+        if: ${{ failure() }}
+        uses: appleboy/telegram-action@master
+        with:
+          message: |
+
+              ${{ github.repository }}
+              ${{ github.run_id }}
+              ${{ github.workflow }}
+              ${{ github.run_id }}
+
+
       - name: Notify in telegram after image was pushed
         uses: appleboy/telegram-action@master
         with:
