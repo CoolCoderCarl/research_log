@@ -31,7 +31,7 @@ jobs:
       - uses: jannekem/run-python-script-action@v1
         with:
           script: |
-            gub_repo = ${{ github.repository }}
+            gub_repo = "${{ github.repository }}"
             print(gub_repo)
 
       - name: Step To run on failure
@@ -43,8 +43,6 @@ jobs:
           format: html
           message: |
             <b>!!! FAILED !!!</b>
-
-            ${{ repo.namespace }}
 
             <b>Failed job:</b> https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
