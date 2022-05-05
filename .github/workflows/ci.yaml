@@ -36,11 +36,11 @@ jobs:
           message: |
             ${{ github.actor }} created commit:
 
-            <b>WorkFlows:</b> https://github.com/${{ github.repository }}/actions
+            <b>WorkFlows:</b> <a href="https://github.com/${{ github.repository }}/actions">ActionsList</a>
 
             Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
-            Repository: #(${{ github.repository }})
+            Repository: ${{ github.repository }}
 
             Branch: ${{ github.ref }}
 
