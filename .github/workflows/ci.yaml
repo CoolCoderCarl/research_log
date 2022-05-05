@@ -40,7 +40,7 @@ jobs:
 
             Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
-            Repository: #${{ github.repository }}
+            Repository: #(${{ github.repository }})
 
             Branch: ${{ github.ref }}
 
