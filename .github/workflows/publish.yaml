@@ -56,6 +56,6 @@ jobs:
 
             Branch: ${{ github.ref }}
 
-            <b>Pushed image:</b> h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
+            <b>Pushed image:</b> <code>docker pull h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}</code>
 
             See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
