@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Checks with black, isort
     container: python:3.9
+    outputs:
+      get_current_tag: ${{ steps.set_github_repository_short.outputs.github_repository_short }}
 
     steps:
       - name: Checkout code
@@ -48,6 +50,9 @@ jobs:
           format: html
           message: |
             <b>!!! FAILED !!!</b>
+
+            ${{ steps.github_repository_short.github_repository_short }}
+            ${{ steps.set_github_repository_short.github_repository_short }}
 
             <b>Failed job:</b> https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
