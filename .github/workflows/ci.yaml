@@ -38,8 +38,9 @@ jobs:
         if: ${{ failure() }}
         uses: appleboy/telegram-action@master
         with:
+          to: ${{ secrets.TELEGRAM_CHAT }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-
               ${{ github.repository }}
               ${{ github.run_id }}
               ${{ github.workflow }}
