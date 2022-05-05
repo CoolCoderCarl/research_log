@@ -44,13 +44,18 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_CHAT }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: html
           message: |
             ${{ github.actor }} created commit:
+
+            <b>WorkFlows:</b> <a href="https://github.com/${{ github.repository }}/actions">ActionsList</a>
 
             Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
+
             Branch: ${{ github.ref }}
-            Pushed image: h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
+
+            <b>Pushed image:</b> h0d0user/flask_web_test:${{ steps.tag_version.outputs.new_tag }}
 
             See changes: https://github.com/${{ github.repository }}/commit/${{ github.sha }}
