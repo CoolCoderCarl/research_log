@@ -44,7 +44,7 @@ jobs:
 
             <pre><code class="language-python">
             gub_repo = ${{ github.repository }}
-             print(gub_repo)
+            print(gub_repo)
             </code></pre>
 
             Branch: ${{ github.ref }}
