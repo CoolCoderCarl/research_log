@@ -27,6 +27,12 @@ jobs:
         run:
           isort --check .
 
+      - uses: jannekem/run-python-script-action@v1
+        with:
+          script: |
+            gub_repo = ${{ github.repository }}
+            print(gub_repo)
+
       - name: Notify in telegram after image was pushed
         uses: appleboy/telegram-action@master
         with:
@@ -41,11 +47,6 @@ jobs:
             Commit with tag: ${{ steps.tag_version.outputs.new_tag }}
 
             Repository: ${{ github.repository }}
-
-            <pre><code class="language-python">
-            gub_repo = ${{ github.repository }}
-            print(gub_repo)
-            </code></pre>
 
             Branch: ${{ github.ref }}
 
