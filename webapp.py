@@ -34,18 +34,18 @@ def submit():
 
 @app.route(f"/{RESEARCH_LOGS_PATH}", defaults={"req_path": ""})
 @app.route("/<path:req_path>")
-def files(req_path):
+def entries(req_path):
     base_dir = RESEARCH_LOGS_PATH
     abs_path = os.path.join(base_dir, req_path)
-    list_files = os.listdir(abs_path)
-    return render_template("files.html", files=list_files)
+    list_entries = os.listdir(abs_path)
+    return render_template("entries.html", files=list_entries)
 
 
-@app.route(f"/{RESEARCH_LOGS_PATH}/<path:filename>")
-def read(filename):
-    with open(f"{RESEARCH_LOGS_PATH}/{filename}", "r") as f:
+@app.route(f"/{RESEARCH_LOGS_PATH}/<path:entry_name>")
+def read(entry_name):
+    with open(f"{RESEARCH_LOGS_PATH}/{entry_name}", "r") as f:
         return render_template(
-            "content.html", filename=filename, text_from_file=f.read()
+            "content.html", filename=entry_name, text_from_file=f.read()
         )
 
 
