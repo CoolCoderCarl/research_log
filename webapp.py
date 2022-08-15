@@ -1,15 +1,15 @@
 import os
 from datetime import datetime
 
-from flask import Flask, Response, render_template, request, url_for
+from flask import Flask, render_template, request, url_for
 
 dt_file_name = datetime.now().strftime("%d.%m.%Y_%H.%M.%S")
 
 app = Flask(__name__)
 
-research_logs_path = "research_logs"
+RESEARCH_LOGS_PATH = "research_logs"
 try:
-    os.makedirs(research_logs_path)
+    os.makedirs(RESEARCH_LOGS_PATH)
 except OSError:
     pass
 
@@ -17,41 +17,33 @@ except OSError:
 @app.route("/")
 @app.route("/index")
 def index():
-    return render_template("index.html", title="Index")
-
-
-@app.route("/time_feed")
-def time_feed():
-    def generate():
-        yield datetime.now().strftime("%d.%m.%Y|%H:%M:%S")
-
-    return Response(generate(), mimetype="text")
+    return render_template("index.html", title="index")
 
 
 @app.route("/submit", methods=["POST"])
 def submit():
     text = request.form["text"]
-    # TO DO
-    # If text empty pass
-    with open(
-        research_logs_path + "/" + "entry-%s.txt" % dt_file_name, "w"
-    ) as text_file:
-        text_file.write(text)
-    return render_template("index.html", title="Index")
+    # Disable button submit if text is empty ?
+    if text == "":
+        return render_template("index.html", title="index")
+    else:
+        with open(f"{RESEARCH_LOGS_PATH}/entry-{dt_file_name}.txt", "w") as text_file:
+            text_file.write(text)
+        return render_template("index.html", title="index")
 
 
-@app.route("/files", defaults={"req_path": ""})
+@app.route(f"/{RESEARCH_LOGS_PATH}", defaults={"req_path": ""})
 @app.route("/<path:req_path>")
 def files(req_path):
-    base_dir = research_logs_path
+    base_dir = RESEARCH_LOGS_PATH
     abs_path = os.path.join(base_dir, req_path)
     list_files = os.listdir(abs_path)
     return render_template("files.html", files=list_files)
 
 
-@app.route("/files/<path:filename>")
+@app.route(f"/{RESEARCH_LOGS_PATH}/<path:filename>")
 def read(filename):
-    with open(research_logs_path + "/" + filename, "r") as f:
+    with open(f"{RESEARCH_LOGS_PATH}/{filename}", "r") as f:
         return render_template(
             "content.html", filename=filename, text_from_file=f.read()
         )
